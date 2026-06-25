@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glimzy Photobooth</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- MediaPipe for background segmentation -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+  <!-- FaceAPI for landmark detection -->
+  <script defer src="face-api.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <!-- Splash Screen -->
+  <div id="splash-screen">
+    <img src="filters/glimzy.png" alt="Glimzy Logo" id="logo">
+    <h2>Glimzy</h2>
+    <p>Get ready to take your filtered photostrip!</p>
+    <button id="start-app-btn">Start</button>
+  </div>
+
+  <!-- Main App -->
+  <div id="app-container" style="display: none;">
+    <button id="help-btn">?</button>
+
+    <div id="camera-view">
+      <div id="camera-box">
+        <video id="video" width="720" height="560" autoplay muted playsinline></video>
+        <canvas id="overlay"></canvas>
+        <div id="countdown"></div>
+      </div>
+
+      <div id="controls">
+        <div id="filter-tray">
+          <button class="filter-btn active" data-filter="none">🚫</button>
+          <button class="filter-btn" data-filter="filters/bunny.png"><img src="filters/bunny.png" alt="Bunny"></button>
+          <button class="filter-btn" data-filter="filters/sunglasses.png"><img src="filters/sunglasses.png" alt="Glasses"></button>
+          <button class="filter-btn" data-filter="filters/cat_ears.png"><img src="filters/cat_ears.png" alt="Cat Ears"></button>
+          <button class="filter-btn" data-filter="filters/dog_ears.png"><img src="filters/dog_ears.png" alt="Dog Ears"></button>
+          <button class="filter-btn" data-filter="filters/pink_ears.png"><img src="filters/pink_ears.png" alt="Pink Ears"></button>
+        </div>
+
+        <button id="start-capture-btn">Start Capture</button>
+      </div>
+
+      <div id="background-tray">
+        <button class="bg-btn active" data-bg="none">🚫</button>
+        <button class="bg-btn" data-bg="filters/bg1.png"><img src="filters/bg1.png" alt="BG 1"></button>
+        <button class="bg-btn" data-bg="filters/bg2.png"><img src="filters/bg2.png" alt="BG 2"></button>
+        <button class="bg-btn" data-bg="filters/bg3.png"><img src="filters/bg3.png" alt="BG 3"></button>
+      </div>
+    </div>
+
+    <div id="sidebar">
+      <h3>Your Shots</h3>
+      <canvas id="shot1" class="shot-preview"></canvas>
+      <canvas id="shot2" class="shot-preview"></canvas>
+      <canvas id="shot3" class="shot-preview"></canvas>
+      <canvas id="shot4" class="shot-preview"></canvas>
+    </div>
+  </div>
+
+  <!-- Preview Modal -->
+  <div id="preview-modal" style="display: none;">
+    <div class="modal-content">
+      <h2>Photo Strip Preview</h2>
+      <canvas id="photostrip-canvas"></canvas>
+      <div class="modal-actions">
+        <button id="retake-btn">Take New Photos</button>
+        <a id="download-btn" href="#" download="glimzy-photostrip.png">Download</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
